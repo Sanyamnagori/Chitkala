@@ -73,7 +73,7 @@ export function DecorativeFace({
           className={`object-contain transition-opacity duration-300 ${
             hovered ? "opacity-100" : "opacity-0"
           }`}
-          style={{ transform: gifTransform }}
+          style={{ transform: gifTransform, zIndex: 1 }}
           sizes="20vw"
         />
         <Image
@@ -83,21 +83,15 @@ export function DecorativeFace({
           className={`object-contain transition-opacity duration-300 ${
             hovered ? "opacity-0" : "opacity-100"
           }`}
+          style={{ zIndex: 2 }}
           sizes="20vw"
         />
         {!hovered && (
-          <>
-            <EyePupil
-              baseLeft={leftEye.x}
-              baseTop={leftEye.y}
-              offset={pupilOffset}
-            />
-            <EyePupil
-              baseLeft={rightEye.x}
-              baseTop={rightEye.y}
-              offset={pupilOffset}
-            />
-          </>
+          <SvgEyes
+            leftEye={leftEye}
+            rightEye={rightEye}
+            offset={pupilOffset}
+          />
         )}
       </div>
       {/* Invisible overlay for easy coordinate debugging in development */}
@@ -116,23 +110,83 @@ export function DecorativeFace({
   );
 }
 
-function EyePupil({
-  baseLeft,
-  baseTop,
+function SvgEyes({
+  leftEye,
+  rightEye,
   offset,
 }: {
-  baseLeft: string;
-  baseTop: string;
+  leftEye: { x: string; y: string };
+  rightEye: { x: string; y: string };
   offset: { x: number; y: number };
 }) {
+  const lx = parseFloat(leftEye.x);
+  const ly = parseFloat(leftEye.y);
+  const rx = parseFloat(rightEye.x);
+  const ry = parseFloat(rightEye.y);
+
+  const avgX = (lx + rx) / 2;
+  const avgY = (ly + ry) / 2;
+
+  // We explicitly set distance and removed tilt, making it perfectly horizontal
+  const eyeDistance = Math.abs(rx - lx);
+  
+  // 0.613 is the distance between the two eyes in the SVG (160px/261px)
+  const svgWidth = eyeDistance / 0.613;
+
+  // Using two small erasers instead of one giant one. 
+  // Slightly oversized to guarantee they cover any underlying marks perfectly.
+  const eraserWidth = svgWidth * 0.45;
+  const eraserHeight = svgWidth * 0.35;
+
   return (
-    <span
-      className="absolute h-3 w-3 rounded-full bg-text-dark transition-transform duration-75 will-change-transform"
-      style={{
-        left: baseLeft,
-        top: baseTop,
-        transform: `translate(${offset.x}px, ${offset.y}px)`,
-      }}
-    />
+    <>
+      {/* Static Eraser Left */}
+      <div
+        className="absolute rounded-[50%]"
+        style={{
+          zIndex: 10,
+          backgroundColor: "#E34234",
+          left: `${lx}%`,
+          top: `${ly}%`,
+          width: `${eraserWidth}%`,
+          height: `${eraserHeight}%`,
+          transform: `translate(-50%, -50%)`,
+        }}
+      />
+      
+      {/* Static Eraser Right */}
+      <div
+        className="absolute rounded-[50%]"
+        style={{
+          zIndex: 10,
+          backgroundColor: "#E34234",
+          left: `${rx}%`,
+          top: `${ry}%`,
+          width: `${eraserWidth}%`,
+          height: `${eraserHeight}%`,
+          transform: `translate(-50%, -50%)`,
+        }}
+      />
+      
+      {/* Moving SVG Eyes */}
+      <div
+        className="absolute transition-transform duration-75 will-change-transform"
+        style={{
+          zIndex: 20,
+          left: `${avgX}%`,
+          top: `${avgY}%`,
+          width: `${svgWidth}%`,
+          transform: `translate(-50%, -50%) translate(${offset.x}px, ${offset.y}px)`,
+        }}
+      >
+        <Image 
+          src="/images/eyes-follow.svg" 
+          alt="" 
+          width={261} 
+          height={93} 
+          className="h-auto w-full" 
+        />
+      </div>
+    </>
   );
 }

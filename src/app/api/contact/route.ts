@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     const fromEmail = process.env.FROM_EMAIL || "onboarding@resend.dev";
 
     if (resend && studioEmail) {
-      await resend.emails.send({
+      const response = await resend.emails.send({
         from: `Studio Chitkala <${fromEmail}>`,
         to: studioEmail,
         replyTo: data.email,
@@ -56,6 +56,11 @@ export async function POST(request: Request) {
           <p><small>Submission ID: ${submissionId}</small></p>
         `,
       });
+
+      if (response.error) {
+        console.error("Resend API Error:", response.error);
+        throw new Error(response.error.message);
+      }
     } else {
       console.warn("RESEND_API_KEY or STUDIO_EMAIL is not set. Simulating email send...");
     }
