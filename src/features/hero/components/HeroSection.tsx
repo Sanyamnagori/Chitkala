@@ -61,27 +61,30 @@ export function HeroSection() {
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <Header variant="hero" />
-        <div className="relative mx-auto h-full w-full max-w-[1920px]">
-          <HandIllustration
-            revealedCount={revealedCount}
-            onFlowerHover={setHoveredFlower}
-          />
-
-          {/* Photo cards — only on hover over the matching illustration */}
-          {FLOWER_REVEAL_ORDER.map((id) => (
-            <FlowerCard
-              key={id}
-              {...FLOWERS[id]}
-              visible={hoveredFlower === id}
+        <div className="relative mx-auto h-full w-full max-w-[1920px] overflow-hidden">
+          {/* Coordinate system container for all relative percentage-based illustrations */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-[16/9] w-full min-w-[1200px] md:min-w-0 md:max-w-[1920px]">
+            <HandIllustration
+              revealedCount={revealedCount}
+              onFlowerHover={setHoveredFlower}
             />
-          ))}
+
+            {/* Photo cards — only on hover over the matching illustration */}
+            {FLOWER_REVEAL_ORDER.map((id) => (
+              <FlowerCard
+                key={id}
+                {...FLOWERS[id]}
+                visible={hoveredFlower === id}
+              />
+            ))}
+          </div>
 
           {DECORATIVE_FACES.map((face) => (
             <DecorativeFace key={face.id} {...face} />
           ))}
 
           <motion.h1
-            className="absolute left-[14.1%] top-[83.9%] whitespace-nowrap font-[family-name:var(--font-cabinet)] text-[clamp(2.5rem,6.25vw,7.5rem)] font-medium leading-none text-highlight-wash"
+            className="absolute left-[14.1%] top-[83.9%] w-[80%] whitespace-normal font-[family-name:var(--font-cabinet)] text-[clamp(2.5rem,6.25vw,7.5rem)] font-medium leading-[1.1] text-highlight-wash md:w-auto md:whitespace-nowrap md:leading-none"
             initial={{ opacity: 0.6 }}
             animate={{ opacity: 1 }}
           >

@@ -124,116 +124,123 @@ export function PostcardWizard() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[650px]">
-      <div className="relative aspect-[1100/700] w-full overflow-hidden rounded-lg">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current.postcard}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={current.postcard}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="1100px"
-              priority
-            />
-          </motion.div>
-        </AnimatePresence>
-
-        <div
-          className="absolute inset-0 flex flex-col pr-[8%] pl-[55%] pt-[36%]"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current.key}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35 }}
-              className="w-full max-w-xs"
-            >
-              <p className="font-[family-name:var(--font-poppins)] text-[13px] leading-tight text-deep-red md:text-[14px]">
-                {current.prompt}
-              </p>
-
-              {current.key === "services" ? (
-                <div className="mt-1 flex flex-col gap-0">
-                  {SERVICE_OPTIONS.map((service) => (
-                    <label
-                      key={service}
-                      className="flex cursor-pointer items-center gap-1.5 font-[family-name:var(--font-poppins)] text-[11px] leading-tight text-deep-red md:text-[12px]"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={formData.services.includes(service)}
-                        onChange={() => toggleService(service)}
-                        className="h-2.5 w-2.5 accent-deep-red"
-                      />
-                      {service}
-                    </label>
-                  ))}
-                </div>
-              ) : current.key === "notes" ? (
-                <div className="mt-1">
-                  <label className="font-[family-name:var(--font-poppins)] text-[12px] text-deep-red md:text-[13px]">
-                    {current.fieldLabel}
-                  </label>
-                  <textarea
-                    value={formData.notes}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, notes: e.target.value }))
-                    }
-                    placeholder={current.placeholder}
-                    rows={2}
-                    className="mt-0.5 w-full resize-none border-b border-deep-red/40 bg-transparent font-[family-name:var(--font-poppins)] text-[12px] text-deep-red/80 outline-none placeholder:text-deep-red/30 md:text-[13px]"
-                  />
-                </div>
-              ) : (
-                <div className="mt-1">
-                  <label className="font-[family-name:var(--font-poppins)] text-[12px] text-deep-red md:text-[13px]">
-                    {current.fieldLabel}
-                  </label>
-                  <input
-                    type={current.field === "email" ? "email" : "text"}
-                    value={formData[current.field as keyof typeof formData] as string}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        [current.field]: e.target.value,
-                      }))
-                    }
-                    placeholder={current.placeholder}
-                    className="mt-0.5 w-full border-b border-deep-red bg-transparent font-[family-name:var(--font-poppins)] text-[12px] text-deep-red/80 outline-none placeholder:text-deep-red/30 md:text-[13px]"
-                  />
-                </div>
-              )}
-
-              {error && (
-                <p className="mt-0.5 font-[family-name:var(--font-poppins)] text-[10px] text-white">
-                  {error}
-                </p>
-              )}
-
-              <button
-                type="button"
-                onClick={handleNext}
-                disabled={submitting}
-                className="mt-2 self-start font-[family-name:var(--font-poppins)] text-[12px] text-deep-red transition-opacity hover:opacity-80 disabled:opacity-50 md:text-[13px]"
+    <div className="mx-auto w-full max-w-[850px]">
+      <div 
+        dir="rtl" 
+        className="w-full overflow-x-auto pb-6 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:pb-0 md:overflow-visible"
+      >
+        <div dir="ltr" className="mx-auto w-full min-w-[650px] snap-end px-4 md:min-w-0 md:px-0">
+          <div className="relative aspect-[1100/700] w-full overflow-hidden rounded-lg">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current.postcard}
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0"
               >
-                {step === WIZARD_STEPS.length - 1
-                  ? submitting
-                    ? "Sending..."
-                    : "Send postcard >>>"
-                  : "Next >>>"}
-              </button>
-            </motion.div>
-          </AnimatePresence>
+                <Image
+                  src={current.postcard}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="1100px"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
+
+            <div
+              className="absolute inset-0 flex flex-col pr-[8%] pl-[55%] pt-[36%]"
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={current.key}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35 }}
+                  className="w-full max-w-xs"
+                >
+                  <p className="font-[family-name:var(--font-poppins)] text-[13px] leading-tight text-deep-red md:text-[14px]">
+                    {current.prompt}
+                  </p>
+
+                  {current.key === "services" ? (
+                    <div className="mt-1 flex flex-col gap-0">
+                      {SERVICE_OPTIONS.map((service) => (
+                        <label
+                          key={service}
+                          className="flex cursor-pointer items-center gap-1.5 font-[family-name:var(--font-poppins)] text-[11px] leading-tight text-deep-red md:text-[12px]"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={formData.services.includes(service)}
+                            onChange={() => toggleService(service)}
+                            className="h-2.5 w-2.5 accent-deep-red"
+                          />
+                          {service}
+                        </label>
+                      ))}
+                    </div>
+                  ) : current.key === "notes" ? (
+                    <div className="mt-1">
+                      <label className="font-[family-name:var(--font-poppins)] text-[12px] text-deep-red md:text-[13px]">
+                        {current.fieldLabel}
+                      </label>
+                      <textarea
+                        value={formData.notes}
+                        onChange={(e) =>
+                          setFormData((prev) => ({ ...prev, notes: e.target.value }))
+                        }
+                        placeholder={current.placeholder}
+                        rows={2}
+                        className="mt-0.5 w-full resize-none border-b border-deep-red/40 bg-transparent font-[family-name:var(--font-poppins)] text-[12px] text-deep-red/80 outline-none placeholder:text-deep-red/30 md:text-[13px]"
+                      />
+                    </div>
+                  ) : (
+                    <div className="mt-1">
+                      <label className="font-[family-name:var(--font-poppins)] text-[12px] text-deep-red md:text-[13px]">
+                        {current.fieldLabel}
+                      </label>
+                      <input
+                        type={current.field === "email" ? "email" : "text"}
+                        value={formData[current.field as keyof typeof formData] as string}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            [current.field]: e.target.value,
+                          }))
+                        }
+                        placeholder={current.placeholder}
+                        className="mt-0.5 w-full border-b border-deep-red bg-transparent font-[family-name:var(--font-poppins)] text-[12px] text-deep-red/80 outline-none placeholder:text-deep-red/30 md:text-[13px]"
+                      />
+                    </div>
+                  )}
+
+                  {error && (
+                    <p className="mt-0.5 font-[family-name:var(--font-poppins)] text-[10px] text-white">
+                      {error}
+                    </p>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    disabled={submitting}
+                    className="mt-2 self-start font-[family-name:var(--font-poppins)] text-[12px] text-deep-red transition-opacity hover:opacity-80 disabled:opacity-50 md:text-[13px]"
+                  >
+                    {step === WIZARD_STEPS.length - 1
+                      ? submitting
+                        ? "Sending..."
+                        : "Send postcard >>>"
+                      : "Next >>>"}
+                  </button>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
       </div>
 
