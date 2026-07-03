@@ -48,3 +48,9 @@ body {
 .highlight-block--light {
   background: var(--vermillion);
 }
+
+@media (pointer: fine) {
+  body, button, a, input, textarea, label, [role="button"], * {
+    cursor: none !important;
+  }
+}

@@ -20,6 +20,8 @@ export const metadata: Metadata = {
     "Branding, design, motion, and original art from Studio Chitkala.",
 };
 
+import { CustomCursor } from "@/core/components/CustomCursor";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,8 +36,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} ${inter.variable} min-h-full antialiased`}
+        className={`${poppins.variable} ${inter.variable} min-h-full antialiased md:cursor-none`}
       >
+        <CustomCursor />
         {children}
       </body>
     </html>
