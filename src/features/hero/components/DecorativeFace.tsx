@@ -44,7 +44,9 @@ export function DecorativeFace({
       const dx = clientX - centerX;
       const dy = clientY - centerY;
       const distance = Math.sqrt(dx * dx + dy * dy) || 1;
-      const maxOffset = 10;
+      
+      // Calculate max offset dynamically based on face size (approx 2.5% of face width)
+      const maxOffset = rect.width * 0.025;
       const scale = Math.min(maxOffset / distance, 1);
 
       setPupilOffset({ x: dx * scale, y: dy * scale });
