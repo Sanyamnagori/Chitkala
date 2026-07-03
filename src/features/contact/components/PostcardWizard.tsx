@@ -124,7 +124,7 @@ export function PostcardWizard() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1100px]">
+    <div className="mx-auto w-full max-w-[650px]">
       <div className="relative aspect-[1100/700] w-full overflow-hidden rounded-lg">
         <AnimatePresence mode="wait">
           <motion.div
@@ -147,9 +147,7 @@ export function PostcardWizard() {
         </AnimatePresence>
 
         <div
-          className={`absolute inset-0 flex flex-col justify-end p-[8%] pl-[56%] ${
-            step >= 3 ? "pb-[4%]" : "pb-[12%]"
-          }`}
+          className="absolute inset-0 flex flex-col pr-[8%] pl-[55%] pt-[36%]"
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -158,32 +156,32 @@ export function PostcardWizard() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.35 }}
-              className="max-w-md"
+              className="w-full max-w-xs"
             >
-              <p className="font-[family-name:var(--font-poppins)] text-xl text-deep-red md:text-2xl">
+              <p className="font-[family-name:var(--font-poppins)] text-[13px] leading-tight text-deep-red md:text-[14px]">
                 {current.prompt}
               </p>
 
               {current.key === "services" ? (
-                <div className="mt-3 space-y-1">
+                <div className="mt-1 flex flex-col gap-0">
                   {SERVICE_OPTIONS.map((service) => (
                     <label
                       key={service}
-                      className="flex cursor-pointer items-center gap-3 font-[family-name:var(--font-poppins)] text-base text-deep-red"
+                      className="flex cursor-pointer items-center gap-1.5 font-[family-name:var(--font-poppins)] text-[11px] leading-tight text-deep-red md:text-[12px]"
                     >
                       <input
                         type="checkbox"
                         checked={formData.services.includes(service)}
                         onChange={() => toggleService(service)}
-                        className="h-4 w-4 accent-deep-red"
+                        className="h-2.5 w-2.5 accent-deep-red"
                       />
                       {service}
                     </label>
                   ))}
                 </div>
               ) : current.key === "notes" ? (
-                <div className="mt-6">
-                  <label className="font-[family-name:var(--font-poppins)] text-lg text-deep-red">
+                <div className="mt-1">
+                  <label className="font-[family-name:var(--font-poppins)] text-[12px] text-deep-red md:text-[13px]">
                     {current.fieldLabel}
                   </label>
                   <textarea
@@ -192,18 +190,18 @@ export function PostcardWizard() {
                       setFormData((prev) => ({ ...prev, notes: e.target.value }))
                     }
                     placeholder={current.placeholder}
-                    rows={4}
-                    className="mt-2 w-full resize-none border-b border-deep-red/40 bg-transparent font-[family-name:var(--font-poppins)] text-lg text-deep-red/70 outline-none placeholder:text-deep-red/30"
+                    rows={2}
+                    className="mt-0.5 w-full resize-none border-b border-deep-red/40 bg-transparent font-[family-name:var(--font-poppins)] text-[12px] text-deep-red/80 outline-none placeholder:text-deep-red/30 md:text-[13px]"
                   />
                 </div>
               ) : (
-                <div className="mt-8">
-                  <label className="font-[family-name:var(--font-poppins)] text-lg text-deep-red">
+                <div className="mt-1">
+                  <label className="font-[family-name:var(--font-poppins)] text-[12px] text-deep-red md:text-[13px]">
                     {current.fieldLabel}
                   </label>
                   <input
                     type={current.field === "email" ? "email" : "text"}
-                    value={formData[current.field]}
+                    value={formData[current.field as keyof typeof formData] as string}
                     onChange={(e) =>
                       setFormData((prev) => ({
                         ...prev,
@@ -211,13 +209,13 @@ export function PostcardWizard() {
                       }))
                     }
                     placeholder={current.placeholder}
-                    className="mt-2 w-full border-b border-deep-red bg-transparent font-[family-name:var(--font-poppins)] text-lg text-deep-red/50 outline-none placeholder:text-deep-red/30"
+                    className="mt-0.5 w-full border-b border-deep-red bg-transparent font-[family-name:var(--font-poppins)] text-[12px] text-deep-red/80 outline-none placeholder:text-deep-red/30 md:text-[13px]"
                   />
                 </div>
               )}
 
               {error && (
-                <p className="mt-3 font-[family-name:var(--font-poppins)] text-sm text-white">
+                <p className="mt-0.5 font-[family-name:var(--font-poppins)] text-[10px] text-white">
                   {error}
                 </p>
               )}
@@ -226,7 +224,7 @@ export function PostcardWizard() {
                 type="button"
                 onClick={handleNext}
                 disabled={submitting}
-                className="mt-6 font-[family-name:var(--font-poppins)] text-xl text-deep-red transition-opacity hover:opacity-80 disabled:opacity-50"
+                className="mt-2 self-start font-[family-name:var(--font-poppins)] text-[12px] text-deep-red transition-opacity hover:opacity-80 disabled:opacity-50 md:text-[13px]"
               >
                 {step === WIZARD_STEPS.length - 1
                   ? submitting

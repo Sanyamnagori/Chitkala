@@ -9,6 +9,7 @@ type DecorativeFaceProps = {
   left: string;
   top: string;
   width: string;
+  rotation?: string;
   leftEye: { x: string; y: string };
   rightEye: { x: string; y: string };
   gifTransform?: string;
@@ -20,6 +21,7 @@ export function DecorativeFace({
   left,
   top,
   width,
+  rotation,
   leftEye,
   rightEye,
   gifTransform,
@@ -64,7 +66,10 @@ export function DecorativeFace({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative aspect-[331/314] w-full">
+      <div 
+        className="relative aspect-[331/314] w-full"
+        style={{ transform: rotation ? `rotate(${rotation})` : undefined }}
+      >
         <Image
           src={gif}
           alt=""
