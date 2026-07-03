@@ -44,7 +44,12 @@ export function FlowerCard({
         >
           <motion.div
             className="absolute overflow-hidden rounded-sm"
-            style={{ left, top, width, height }}
+            style={{
+              left: `clamp(calc(50% - 50vw + 20px), ${left}, calc(50% + 50vw - ${width} - 20px))`,
+              top,
+              width,
+              height,
+            }}
             initial={{ scale: 0.92 }}
             animate={{ scale: 1.06 }}
             exit={{ scale: 0.92 }}
@@ -64,7 +69,7 @@ export function FlowerCard({
           <span
             className="absolute whitespace-nowrap font-[family-name:var(--font-cabinet)] text-lg font-medium text-deep-red"
             style={{
-              left: labelLeft,
+              left: `clamp(calc(50% - 50vw + 40px), ${labelLeft}, calc(50% + 50vw - 100px))`,
               top: labelTop,
               transform: "translate(-30%, -120%)",
             }}
@@ -74,7 +79,10 @@ export function FlowerCard({
 
           <p
             className="absolute max-w-[190px] font-[family-name:var(--font-cabinet)] text-lg font-medium leading-snug text-white"
-            style={{ left: ticketLeft, top: ticketTop }}
+            style={{
+              left: `clamp(calc(50% - 50vw + 20px), ${ticketLeft}, calc(50% + 50vw - 190px - 20px))`,
+              top: ticketTop,
+            }}
           >
             &ldquo;{ticket}&rdquo;
           </p>
