@@ -32,8 +32,8 @@ export function PortfolioSection() {
       id="about"
       className="relative flex min-h-screen flex-col justify-center bg-white py-24 section-padding"
     >
-      <div className="mx-auto flex w-full max-w-[1454px] flex-col gap-20 text-center">
-        <p className="font-[family-name:var(--font-cabinet)] text-[clamp(1.75rem,3.33vw,4rem)] leading-[1.35] text-text-dark">
+      <div className="mx-auto flex w-full max-w-[1454px] flex-col gap-12 md:gap-16 text-center">
+        <p className="font-[family-name:var(--font-cabinet)] text-[clamp(1.5rem,2.5vw,3rem)] leading-[1.35] text-text-dark">
           From logos
           <InlineIllustrationSlot src="/images/inline-gif-1.gif" alt="Logos illustration" />
           & brand identities to brochures, packaging, social media creatives, &
@@ -54,7 +54,7 @@ export function PortfolioSection() {
           industries.
         </p>
 
-        <p className="font-[family-name:var(--font-cabinet)] text-[clamp(1.75rem,3.33vw,4rem)] leading-[1.35] text-text-dark">
+        <p className="font-[family-name:var(--font-cabinet)] text-[clamp(1.5rem,2.5vw,3rem)] leading-[1.35] text-text-dark">
           From{" "}
           <Link href="#" className="relative inline-block font-bold text-deep-red transition-opacity hover:opacity-80">
             <span className="relative z-10">our Art Studio</span>
